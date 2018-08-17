@@ -6,3 +6,5 @@ export const StatusBarContainer = styled.View`
   height: ${Constants.statusBarHeight};
   background-color: #000000;
 `
+
+export default null
