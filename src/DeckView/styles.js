@@ -1,17 +1,14 @@
 import styled from 'styled-components'
 
-export const DeckListFlatList = styled.FlatList`
-  width: 100%;
-  background-color: #fff;
+export const DeckItemView = styled.View`
+  background-color: #f0f0f0;
+  justify-content: space-between;
   flex: 1;
 `
 
-export const DeckItemView = styled.View`
-  border-bottom-width: 1;
-  border-bottom-color: grey;
-  background-color: #f0f0f0;
-  height: 200;
+export const TextContainer = styled.View`
   justify-content: center;
+  flex: 1;
 `
 
 export const DeckItemText = styled.Text`
@@ -25,3 +22,10 @@ export const DeckItemSubText = DeckItemText.extend`
   color: grey;
   font-size: 14px;
 `
+
+export const ButtonsGroup = styled.View`
+  align-items: center;
+  margin-bottom: 60;
+`
+
+export default null
