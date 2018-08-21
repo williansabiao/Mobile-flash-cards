@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { connect } from 'react-redux'
 import { TouchableOpacity } from 'react-native'
+
+// import { deckListOperations } from '../../duck/deckList'
 
 import {
   DeckListFlatList,
@@ -10,7 +12,7 @@ import {
   DeckItemSubText,
 } from './styles'
 
-const DeckList = ({ navigation }) => (
+const DeckList = ({ navigation, list }) => console.log(list) || (
   <DeckListFlatList
     data={[
       { key: 'item1', cardsCount: 0 },
@@ -36,8 +38,13 @@ const DeckList = ({ navigation }) => (
   />
 )
 
+const mapStateToProps = ({ deckList }) => ({
+  list: deckList.list,
+})
+
 DeckList.propTypes = {
   navigation: PropTypes.objectOf(PropTypes.any).isRequired,
+  list: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
-export default DeckList
+export default connect(mapStateToProps, null)(DeckList)

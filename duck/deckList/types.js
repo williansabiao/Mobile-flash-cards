@@ -1,0 +1,9 @@
+export const GET_LIST = 'DECK/GET_LIST'
+export const GET_LIST_SUCCESS = 'DECK/GET_LIST_SUCCESS'
+export const GET_LIST_ERROR = 'DECK/GET_LIST_ERROR'
+
+export const INSERT_DECK = 'DECK/INSERT_DECK'
+export const INSERT_DECK_SUCCESS = 'DECK/INSERT_DECK_SUCCESS'
+export const INSERT_DECK_ERROR = 'DECK/INSERT_DECK_ERROR'
+
+export default {}
