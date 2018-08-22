@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import uuid from 'uuid/v4'
 
 import { deckListOperations } from '../../duck/deckList'
 
@@ -20,15 +21,15 @@ class NewDeck extends Component {
   onPressBtn = () => {
     const { title } = this.state
     const { navigation, insertDeck } = this.props
+    const id = uuid()
 
     insertDeck({
-      [title]: {
-        title,
-        questions: [],
-      },
+      id,
+      title,
+      questions: [],
     })
 
-    navigation.navigate('NewCard')
+    navigation.navigate('NewCard', { id, title })
   }
 
   render() {

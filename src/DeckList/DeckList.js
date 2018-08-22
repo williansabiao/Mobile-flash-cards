@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { TouchableOpacity } from 'react-native'
-
-// import { deckListOperations } from '../../duck/deckList'
 
 import {
   DeckListFlatList,
@@ -12,25 +9,13 @@ import {
   DeckItemSubText,
 } from './styles'
 
-const DeckList = ({ navigation, list }) => console.log(list) || (
+const DeckList = ({ navigation, deckList }) => (
   <DeckListFlatList
-    data={[
-      { key: 'item1', cardsCount: 0 },
-      { key: 'item2', cardsCount: 0 },
-      { key: 'item3', cardsCount: 0 },
-      { key: 'item4', cardsCount: 0 },
-      { key: 'item5', cardsCount: 0 },
-      { key: 'item6', cardsCount: 0 },
-      { key: 'item7', cardsCount: 0 },
-      { key: 'item8', cardsCount: 0 },
-      { key: 'item9', cardsCount: 0 },
-      { key: 'item10', cardsCount: 0 },
-      { key: 'item11', cardsCount: 0 },
-    ]}
+    data={deckList}
     renderItem={({ item }) => (
-      <TouchableOpacity onPress={() => navigation.navigate('DeckView', { title: item.key })}>
+      <TouchableOpacity onPress={() => navigation.navigate('DeckView', { title: item.title })}>
         <DeckItemView>
-          <DeckItemText>{item.key}</DeckItemText>
+          <DeckItemText>{item.title}</DeckItemText>
           <DeckItemSubText>{item.cardsCount} cards</DeckItemSubText>
         </DeckItemView>
       </TouchableOpacity>
@@ -38,13 +23,9 @@ const DeckList = ({ navigation, list }) => console.log(list) || (
   />
 )
 
-const mapStateToProps = ({ deckList }) => ({
-  list: deckList.list,
-})
-
 DeckList.propTypes = {
   navigation: PropTypes.objectOf(PropTypes.any).isRequired,
-  list: PropTypes.arrayOf(PropTypes.any).isRequired,
+  deckList: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
-export default connect(mapStateToProps, null)(DeckList)
+export default DeckList

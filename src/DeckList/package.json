@@ -1,5 +1,5 @@
 {
   "private": true,
-  "main": "DeckList.js",
+  "main": "DeckList.state.js",
   "name": "deck-list"
 }
