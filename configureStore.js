@@ -1,24 +1,27 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import throttle from 'lodash/throttle'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+// import { AsyncStorage } from 'react-native'
 
 import rootReducer from './reducers'
-import { saveState } from './localStorage'
 
+const persistConfig = {
+  key: 'udaciCards',
+  storage,
+}
 
-export default function configureStore(initialState) {
-  const finalCreateStore = compose(
-    applyMiddleware(thunk),
-  )(createStore)
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-  const store = finalCreateStore(rootReducer, initialState)
-
-  store.subscribe(throttle(() => {
-    const { deckList } = store.getState()
-    saveState({
-      deckList,
-    })
-  }, 1000))
-
-  return { store }
+// export default function configureStore(initialState) {
+export default function configureStore() {
+  const store = createStore(
+    persistedReducer,
+    {},
+    compose(
+      applyMiddleware(thunk),
+    ),
+  )
+  const persistor = persistStore(store)
+  return { store, persistor }
 }

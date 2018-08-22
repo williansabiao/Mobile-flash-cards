@@ -1,20 +1,26 @@
-export const loadState = () => {
+import { AsyncStorage } from 'react-native'
+
+export const loadState = async () => {
   try {
-    const serializedState = localStorage.getItem('UdaciCards')
-    if (serializedState === null) {
-      return undefined
+    const serializedState = await AsyncStorage.getItem('UdaciCards')
+    console.log('serializedState', serializedState)
+    if (serializedState !== null) {
+      // We have data!!
+      return JSON.parse(serializedState)
     }
-    return JSON.parse(serializedState)
-  } catch (err) {
     return undefined
+  } catch (error) {
+    // return undefined
+    console.log(error)
   }
 }
 
-export const saveState = (state) => {
+export const saveState = async (state) => {
   try {
     const serializedState = JSON.stringify(state)
-    localStorage.setItem('UdaciCards', serializedState)
-  } catch (err) {
-    // console.log(err)
+    await AsyncStorage.setItem('UdaciCards', serializedState)
+  } catch (error) {
+    // Error saving data
+    console.log(error)
   }
 }

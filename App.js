@@ -3,8 +3,8 @@ import { StyleSheet, View, Platform } from 'react-native'
 import { Provider } from 'react-redux'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
+import { PersistGate } from 'redux-persist/integration/react'
 
-import { loadState } from './localStorage'
 import configureStore from './configureStore'
 import StatusBar from './src/StatusBar'
 import DeckList from './src/DeckList'
@@ -86,16 +86,16 @@ const styles = StyleSheet.create({
 })
 
 
-const persistedState = loadState()
-const { store } = configureStore(persistedState)
+const { persistor, store } = configureStore()
 
-console.log(persistedState)
 const App = () => (
   <Provider store={store}>
-    <View style={styles.container}>
-      <StatusBar />
-      <MainNavigator />
-    </View>
+    <PersistGate loading={null} persistor={persistor}>
+      <View style={styles.container}>
+        <StatusBar />
+        <MainNavigator />
+      </View>
+    </PersistGate>
   </Provider>
 )
 export default App
