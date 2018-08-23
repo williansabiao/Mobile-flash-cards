@@ -13,16 +13,6 @@ import {
 } from './styles'
 
 class NewCard extends Component {
-  static navigationOptions = ({ navigation }) => {
-    const { params = {} } = navigation.state
-    const { title = 'Untitled' } = params
-
-    // this.setState({ deckId: id })
-    return {
-      title: `Deck ${title}`,
-    }
-  }
-
   state = {
     deckId: null,
     question: '',
@@ -37,9 +27,17 @@ class NewCard extends Component {
 
   saveCard = () => {
     const { deckId, question, answer } = this.state
-    const { insertDeck } = this.props
+    const { insertDeck, navigation } = this.props
+
+    if (question.length < 1 || answer.length < 1) return
 
     insertDeck(deckId, { question, answer })
+    navigation.navigate('DeckList')
+  }
+
+  isValid = () => {
+    const { question, answer } = this.state
+    return question.length > 0 && answer.length > 0
   }
 
   render() {
@@ -59,7 +57,7 @@ class NewCard extends Component {
           value={answer}
         />
         <ButtonsGroup>
-          <TextButton width="120" onPress={this.saveCard}>Submit</TextButton>
+          <TextButton width="120" onPress={this.saveCard} disabled={!this.isValid()}>Submit</TextButton>
         </ButtonsGroup>
       </NewCardView>
     )

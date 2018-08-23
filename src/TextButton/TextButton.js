@@ -7,9 +7,11 @@ const TextButton = ({
   onPress,
   white,
   width,
+  disabled,
+  ...rest
 }) => (
-  <Button onPress={onPress} white={white} width={width}>
-    <Text white={white}>{children}</Text>
+  <Button {...rest} onPress={onPress} white={white} width={width} disabled={disabled}>
+    <Text white={white} disabled={disabled}>{children}</Text>
   </Button>
 )
 
@@ -18,11 +20,13 @@ TextButton.propTypes = {
   onPress: PropTypes.func.isRequired,
   white: PropTypes.bool,
   width: PropTypes.string,
+  disabled: PropTypes.bool,
 }
 
 TextButton.defaultProps = {
   white: false,
   width: '',
+  disabled: false,
 }
 
 export default TextButton

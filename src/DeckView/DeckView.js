@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import TextButton from '../TextButton'
 import {
@@ -19,19 +21,53 @@ class DeckView extends Component {
     }
   }
 
+  state = {
+    title: '',
+    count: '',
+    id: '',
+  }
+
+  static getDerivedStateFromProps(nextProps) {
+    const { deckList, navigation, cardList } = nextProps
+    const { id } = navigation.state.params
+
+    const myDeck = deckList.find(deck => deck.id === id)
+
+    return {
+      title: myDeck.title,
+      count: (cardList[myDeck.id] || []).length,
+      id: myDeck.id,
+    }
+  }
+
   render() {
+    const { navigation } = this.props
+    const { id, title, count } = this.state
+
     return (
       <DeckItemView>
         <TextContainer>
-          <DeckItemText>My Deck</DeckItemText>
-          <DeckItemSubText>10 cards</DeckItemSubText>
+          <DeckItemText>{title}</DeckItemText>
+          <DeckItemSubText>{count} cards</DeckItemSubText>
         </TextContainer>
         <ButtonsGroup>
-          <TextButton white onPress={() => {}}>Add Card</TextButton>
+          <TextButton white onPress={() => navigation.navigate('NewCard', { id, title })}>Add Card</TextButton>
           <TextButton onPress={() => {}}>Start Quiz</TextButton>
         </ButtonsGroup>
       </DeckItemView>
     )
   }
 }
-export default DeckView
+
+const mapStateToProps = ({ deckList, cardList }) => ({
+  deckList: deckList.list,
+  cardList: cardList.questions,
+})
+
+DeckView.propTypes = {
+  navigation: PropTypes.objectOf(PropTypes.any).isRequired,
+  deckList: PropTypes.arrayOf(PropTypes.any).isRequired,
+  cardList: PropTypes.objectOf(PropTypes.any).isRequired,
+}
+
+export default connect(mapStateToProps, null)(DeckView)

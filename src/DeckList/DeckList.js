@@ -13,7 +13,7 @@ const DeckList = ({ navigation, deckList }) => (
   <DeckListFlatList
     data={deckList}
     renderItem={({ item }) => (
-      <TouchableOpacity onPress={() => navigation.navigate('DeckView', { title: item.title })}>
+      <TouchableOpacity onPress={() => navigation.navigate('DeckView', { title: item.title, id: item.id })}>
         <DeckItemView>
           <DeckItemText>{item.title}</DeckItemText>
           <DeckItemSubText>{item.cardsCount} cards</DeckItemSubText>

@@ -10,23 +10,23 @@ class DeckList extends Component {
     deckList: [],
   }
 
-  componentWillMount() {
-    const { deckList, cardList } = this.props
+  static getDerivedStateFromProps(nextProps) {
+    const { deckList, cardList } = nextProps
+
     const newDeck = deckList.reduce((prev, item) => ([...prev, {
       ...item,
       key: item.id,
-      cardsCount: (cardList[item.id] && cardList[item.id].questions) ? cardList[item.id].questions.length : 0,
+      cardsCount: (cardList[item.id] || []).length,
     }]), [])
-    
-    this.setState({
+
+    return {
       deckList: newDeck,
-    })
+    }
   }
 
   render() {
     // const { navigation, list, cardList } = this.props
     const { deckList } = this.state
-
 
     console.log(deckList[0].key, 'mydeck')
 
