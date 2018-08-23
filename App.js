@@ -11,6 +11,7 @@ import DeckList from './src/DeckList'
 import DeckView from './src/DeckView'
 import NewDeck from './src/NewDeck'
 import NewCard from './src/NewCard'
+import QuizView from './src/QuizView'
 
 const Tabs = createBottomTabNavigator({
   DeckList: {
@@ -70,6 +71,15 @@ const MainNavigator = createStackNavigator({
   },
   DeckView: {
     screen: DeckView,
+    navigationOptions: {
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'purple',
+      },
+    },
+  },
+  QuizView: {
+    screen: QuizView,
     navigationOptions: {
       headerTintColor: 'white',
       headerStyle: {

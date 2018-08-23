@@ -52,7 +52,7 @@ class DeckView extends Component {
         </TextContainer>
         <ButtonsGroup>
           <TextButton white onPress={() => navigation.navigate('NewCard', { id, title })}>Add Card</TextButton>
-          <TextButton onPress={() => {}}>Start Quiz</TextButton>
+          <TextButton onPress={() => navigation.navigate('QuizView', { id, title })}>Start Quiz</TextButton>
         </ButtonsGroup>
       </DeckItemView>
     )
