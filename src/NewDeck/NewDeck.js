@@ -29,6 +29,8 @@ class NewDeck extends Component {
       questions: [],
     })
 
+    this.setState({ title: '' })
+
     navigation.navigate('NewCard', { id, title })
   }
 

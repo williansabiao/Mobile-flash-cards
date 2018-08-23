@@ -11,7 +11,9 @@ class DeckList extends Component {
   }
 
   static getDerivedStateFromProps(nextProps) {
-    const { deckList, cardList } = nextProps
+    const { deckList = [], cardList } = nextProps
+
+    if (deckList.length < 1) return null
 
     const newDeck = deckList.reduce((prev, item) => ([...prev, {
       ...item,
@@ -27,8 +29,6 @@ class DeckList extends Component {
   render() {
     // const { navigation, list, cardList } = this.props
     const { deckList } = this.state
-
-    console.log(deckList[0].key, 'mydeck')
 
     return (
       <DeckListStateless

@@ -17,6 +17,7 @@ class NewCard extends Component {
     deckId: null,
     question: '',
     answer: '',
+    added: false,
   }
 
   componentWillMount() {
@@ -27,12 +28,13 @@ class NewCard extends Component {
 
   saveCard = () => {
     const { deckId, question, answer } = this.state
-    const { insertDeck, navigation } = this.props
+    const { insertDeck } = this.props
 
     if (question.length < 1 || answer.length < 1) return
 
     insertDeck(deckId, { question, answer })
-    navigation.navigate('DeckList')
+    this.setState({ question: '', answer: '', added: true })
+    // navigation.navigate('DeckList')
   }
 
   isValid = () => {
@@ -40,8 +42,13 @@ class NewCard extends Component {
     return question.length > 0 && answer.length > 0
   }
 
+  resetAdded = () => this.setState({ added: false })
+
   render() {
-    const { question, answer } = this.state
+    const { question, answer, added } = this.state
+
+    if (added) setTimeout(this.resetAdded, 1000)
+
     return (
       <NewCardView behavior="padding" enabled>
         <NewCardText>New question</NewCardText>
@@ -56,6 +63,7 @@ class NewCard extends Component {
           onChangeText={value => this.setState({ answer: value })}
           value={answer}
         />
+        {added && <NewCardText>Question added!</NewCardText>}
         <ButtonsGroup>
           <TextButton width="120" onPress={this.saveCard} disabled={!this.isValid()}>Submit</TextButton>
         </ButtonsGroup>

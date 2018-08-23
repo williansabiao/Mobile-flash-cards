@@ -47,7 +47,7 @@ class QuizView extends Component {
   checkAnswer = () => {
     const { answer, question, score } = this.state
     const isCorrect = answer.toLowerCase() === question.answer.toLowerCase()
-    console.log(answer, question.answer, answer.toLowerCase() === question.answer.toLowerCase())
+
     this.setState({
       correct: isCorrect,
       score: score + (isCorrect ? 1 : 0),
@@ -150,7 +150,7 @@ class QuizView extends Component {
               Congrats! You&apos;ve finished the quiz.
             </QuizItemText>
             <QuizItemText>
-              You scored {score / count * 100}% of correct answers
+              You scored {parseInt(score / count * 100, 10)}% of correct answers
             </QuizItemText>
             <QuizFormView>
               <TextButton white onPress={() => navigation.navigate('DeckList')}>Back to deck list</TextButton>

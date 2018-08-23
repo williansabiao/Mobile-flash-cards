@@ -3,7 +3,6 @@ import { AsyncStorage } from 'react-native'
 export const loadState = async () => {
   try {
     const serializedState = await AsyncStorage.getItem('UdaciCards')
-    console.log('serializedState', serializedState)
     if (serializedState !== null) {
       // We have data!!
       return JSON.parse(serializedState)
@@ -12,6 +11,7 @@ export const loadState = async () => {
   } catch (error) {
     // return undefined
     console.log(error)
+    return null
   }
 }
 
