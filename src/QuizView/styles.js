@@ -28,6 +28,15 @@ export const QuizItemText = styled.Text`
   color: #000;
 `
 
+export const QuizItemTextError = QuizItemText.extend`
+  color: red;
+  padding: 5px 0
+`
+
+export const QuizItemTextSuccess = QuizItemTextError.extend`
+  color: green;
+`
+
 export const QuizFormView = styled.View`
   align-items: center;
   margin-bottom: 200;
@@ -44,6 +53,14 @@ export const TextInput = styled.TextInput`
 `
 export const QuestionContainer = styled.TouchableOpacity`
   flex: 1;
+`
+
+export const BtnText = styled.Text`
+  color: #1a2e77;
+  font-size: 14px;
+  margin: 10px 0;
+  text-align: center;
+  width: 100%;
 `
 
 export default null

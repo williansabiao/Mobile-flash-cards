@@ -12,6 +12,9 @@ import {
   CounterText,
   TextInput,
   QuestionContainer,
+  QuizItemTextError,
+  QuizItemTextSuccess,
+  BtnText,
 } from './styles'
 
 class QuizView extends Component {
@@ -104,12 +107,12 @@ class QuizView extends Component {
             </CounterView>
             {correct && (
               <TextContainer>
-                <QuizItemText>Cool, that is correct!</QuizItemText>
+                <QuizItemTextSuccess>Cool, that is correct!</QuizItemTextSuccess>
               </TextContainer>
             )}
             {correct === false && (
               <TextContainer>
-                <QuizItemText>Sorry, wrong answer :(</QuizItemText>
+                <QuizItemTextError>Sorry, wrong answer :(</QuizItemTextError>
                 <QuizItemText>Let&apos;s try the next question.</QuizItemText>
                 <QuizItemText>Good Luck!</QuizItemText>
               </TextContainer>
@@ -130,6 +133,7 @@ class QuizView extends Component {
                         <QuizItemText>{question.answer}</QuizItemText>
                       </React.Fragment>
                     )}
+                    <BtnText>{showQuestion ? 'Answer' : 'Question'}</BtnText>
                   </TextContainer>
                 </QuestionContainer>
                 <QuizFormView>

@@ -32,10 +32,10 @@ const Tabs = createBottomTabNavigator({
   },
 }, {
   tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? 'purple' : 'white',
+    activeTintColor: Platform.OS === 'ios' ? '#1a2e77' : 'white',
     style: {
       height: 56,
-      backgroundColor: Platform.OS === 'ios' ? 'white' : 'purple',
+      backgroundColor: Platform.OS === 'ios' ? 'white' : '#1a2e77',
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
         width: 0,
@@ -65,7 +65,7 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       headerTintColor: 'white',
       headerStyle: {
-        backgroundColor: 'purple',
+        backgroundColor: '#1a2e77',
       },
     },
   },
@@ -74,7 +74,7 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       headerTintColor: 'white',
       headerStyle: {
-        backgroundColor: 'purple',
+        backgroundColor: '#1a2e77',
       },
     },
   },
@@ -83,7 +83,7 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       headerTintColor: 'white',
       headerStyle: {
-        backgroundColor: 'purple',
+        backgroundColor: '#1a2e77',
       },
     },
   },
