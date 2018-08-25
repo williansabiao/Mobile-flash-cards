@@ -37,13 +37,13 @@ class QuizView extends Component {
   }
 
   setQuestion = (props = this.props) => {
-    const { navigation, cardList, question } = props
+    const { navigation, cardList } = props
     const { id } = navigation.state.params
     const questions = cardList[id] || []
 
     return {
       ...INITIAL_STATE,
-      question: question || questions[0],
+      question: questions[0],
       questions,
       count: questions.length,
     }
