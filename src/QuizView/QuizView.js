@@ -17,25 +17,32 @@ import {
   BtnText,
 } from './styles'
 
+
+const INITIAL_STATE = {
+  questions: [],
+  step: 1,
+  count: 0,
+  answer: '',
+  showQuestion: true,
+  question: null,
+  correct: null,
+  score: 0,
+  done: false,
+}
 class QuizView extends Component {
-  state = {
-    questions: [],
-    step: 1,
-    count: 0,
-    answer: '',
-    showQuestion: true,
-    question: null,
-    correct: null,
-    score: 0,
-    done: false,
+  state = INITIAL_STATE
+
+  componentWillMount() {
+    this.setState(this.setQuestion())
   }
 
-  static getDerivedStateFromProps(nextProps) {
-    const { navigation, cardList, question } = nextProps
+  setQuestion = (props = this.props) => {
+    const { navigation, cardList, question } = props
     const { id } = navigation.state.params
     const questions = cardList[id] || []
 
     return {
+      ...INITIAL_STATE,
       question: question || questions[0],
       questions,
       count: questions.length,
@@ -55,6 +62,10 @@ class QuizView extends Component {
       correct: isCorrect,
       score: score + (isCorrect ? 1 : 0),
     })
+  }
+
+  resetQuiz = () => {
+    this.setState(this.setQuestion())
   }
 
   goNextQuestion = () => {
@@ -95,6 +106,8 @@ class QuizView extends Component {
     if (correct) setTimeout(this.goNextQuestion, 1000)
     if (correct === false) setTimeout(this.goNextQuestion, 2000)
     // if (correct === false) setTimeout(this.clearAnswer, 2000)
+
+    if (!question) return null
 
     return (
       <QuizItemView behavior="padding" enabled>
@@ -158,6 +171,7 @@ class QuizView extends Component {
             </QuizItemText>
             <QuizFormView>
               <TextButton white onPress={() => navigation.navigate('DeckList')}>Back to deck list</TextButton>
+              <TextButton width="120" onPress={this.resetQuiz} white>Restart Quiz</TextButton>
             </QuizFormView>
           </TextContainer>
         )}
