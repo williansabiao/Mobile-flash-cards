@@ -17,6 +17,9 @@ To see the project working:
     - `yarn install` or `npm install`
     - `yarn start`
 
+This project is running in *ios* and *android*
+This was tested using iOS simulator from macOS and android simulator from Genymotion.
+
 ## Contributing
 
 This repository is used to study only.
