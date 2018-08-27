@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { cardListOperations } from '../../duck/cardList'
 import TextButton from '../TextButton/TextButton'
 import {
   QuizItemView,
@@ -28,6 +29,7 @@ const INITIAL_STATE = {
   correct: null,
   score: 0,
   done: false,
+  quizId: null,
 }
 class QuizView extends Component {
   state = INITIAL_STATE
@@ -46,6 +48,7 @@ class QuizView extends Component {
       question: questions[0],
       questions,
       count: questions.length,
+      quizId: id,
     }
   }
 
@@ -90,6 +93,14 @@ class QuizView extends Component {
     })
   )
 
+  setGuess = (quizId, cardId, guess) => {
+    const { setGuess } = this.props
+
+    setGuess(quizId, cardId, guess)
+
+    setTimeout(this.goNextQuestion, 500)
+  }
+
   render() {
     const { navigation } = this.props
     const {
@@ -101,10 +112,11 @@ class QuizView extends Component {
       correct,
       done,
       score,
+      quizId,
     } = this.state
 
-    if (correct) setTimeout(this.goNextQuestion, 1000)
-    if (correct === false) setTimeout(this.goNextQuestion, 2000)
+    // if (correct) setTimeout(this.goNextQuestion, 1000)
+    // if (correct === false) setTimeout(this.goNextQuestion, 2000)
     // if (correct === false) setTimeout(this.clearAnswer, 2000)
 
     if (!question) return null
@@ -129,6 +141,26 @@ class QuizView extends Component {
                 <QuizItemText>Let&apos;s try the next question.</QuizItemText>
                 <QuizItemText>Good Luck!</QuizItemText>
               </TextContainer>
+            )}
+            {correct !== null && (
+              <QuizFormView>
+                <TextButton
+                  green
+                  onPress={() => this.setGuess(quizId, question.cardId, 1)}
+                  checked={question.guess === 1}
+                >
+                  Correct
+                </TextButton>
+                <TextButton
+                  red
+                  onPress={() => this.setGuess(quizId, question.cardId, 2)}
+                  white
+                  checked={question.guess === 2}
+                >
+                  Incorrect
+                </TextButton>
+                <TextButton white onPress={this.goNextQuestion}>Next question</TextButton>
+              </QuizFormView>
             )}
             {!correct && correct !== false && (
               <React.Fragment>
@@ -180,6 +212,10 @@ class QuizView extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  setGuess: (quizId, cardId, guess) => dispatch(cardListOperations.setGuess(quizId, cardId, guess)),
+})
+
 const mapStateToProps = ({ cardList }) => ({
   cardList: cardList.questions,
 })
@@ -187,6 +223,7 @@ const mapStateToProps = ({ cardList }) => ({
 QuizView.propTypes = {
   navigation: PropTypes.objectOf(PropTypes.any).isRequired,
   cardList: PropTypes.objectOf(PropTypes.any).isRequired,
+  setGuess: PropTypes.func.isRequired,
 }
 
-export default connect(mapStateToProps, null)(QuizView)
+export default connect(mapStateToProps, mapDispatchToProps)(QuizView)

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import uuid from 'uuid/v4'
 
 import { cardListOperations } from '../../duck/cardList'
 
@@ -32,7 +33,7 @@ class NewCard extends Component {
 
     if (question.length < 1 || answer.length < 1) return
 
-    insertDeck(deckId, { question, answer })
+    insertDeck(deckId, { question, answer, cardId: uuid() })
     this.setState({ question: '', answer: '', added: true })
     // navigation.navigate('DeckList')
   }

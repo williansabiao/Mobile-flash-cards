@@ -7,11 +7,21 @@ const TextButton = ({
   onPress,
   white,
   width,
+  red,
+  green,
   disabled,
   ...rest
 }) => (
-  <Button {...rest} onPress={onPress} white={white} width={width} disabled={disabled}>
-    <Text white={white} disabled={disabled}>{children}</Text>
+  <Button
+    {...rest}
+    onPress={onPress}
+    white={white}
+    red={red}
+    green={green}
+    width={width}
+    disabled={disabled}
+  >
+    <Text white={white} red={red} green={green} disabled={disabled}>{children}</Text>
   </Button>
 )
 
@@ -19,12 +29,16 @@ TextButton.propTypes = {
   children: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   white: PropTypes.bool,
+  red: PropTypes.bool,
+  green: PropTypes.bool,
   width: PropTypes.string,
   disabled: PropTypes.bool,
 }
 
 TextButton.defaultProps = {
   white: false,
+  red: false,
+  green: false,
   width: '',
   disabled: false,
 }
