@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { StyleSheet, View, Platform } from 'react-native'
 import { Provider } from 'react-redux'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
 import { PersistGate } from 'redux-persist/integration/react'
 
+import { setLocalNotification } from './utils/helper'
 import configureStore from './configureStore'
 import StatusBar from './src/StatusBar'
 import DeckList from './src/DeckList'
@@ -98,14 +99,21 @@ const styles = StyleSheet.create({
 
 const { persistor, store } = configureStore()
 
-const App = () => (
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <View style={styles.container}>
-        <StatusBar />
-        <MainNavigator />
-      </View>
-    </PersistGate>
-  </Provider>
-)
-export default App
+export default class App extends Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <View style={styles.container}>
+            <StatusBar />
+            <MainNavigator />
+          </View>
+        </PersistGate>
+      </Provider>
+    )
+  }
+}
